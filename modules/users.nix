@@ -2,7 +2,7 @@
 let
   # Public key only (safe to commit). Windows: C:\Users\<you>\.ssh\id_ed25519.pub
   sshKeys = [
-    "ssh-ed25519 REPLACE_ME_WITH_YOUR_PUBLIC_KEY"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkCwOA/dA46CcYWeE1poqt19imkIYIwectcV0fvIvBH krzysztof@quackzoer-pc"
   ];
 in
 {
