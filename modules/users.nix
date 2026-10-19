@@ -12,7 +12,8 @@ in
     openssh.authorizedKeys.keys = sshKeys;
   };
 
-  security.sudo.wheelNeedsPassword = false;
+  # sudo always asks for the user's password (the NixOS default). Set it once with `passwd`.
+  security.sudo.wheelNeedsPassword = true;
 
   # Refuse to build with the placeholder key, so you can't lock yourself out.
   assertions = [{

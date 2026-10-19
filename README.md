@@ -23,4 +23,11 @@ nixos-install --flake .#wyse
 ssh krzysztof@wyse 'cd ~/nix-config && git pull && sudo nixos-rebuild switch --flake .#wyse'
 ```
 
+## sudo
+
+`sudo` always asks for the `krzysztof` password. Set it with `passwd` on the box **before** applying a config that
+enables it, otherwise sudo cannot be used (`sudo passwd krzysztof` works while sudo is still passwordless).
+
+Deploy from the desktop with `hl deploy` after pushing (it runs `nixos-rebuild switch --flake github:...#wyse --refresh`).
+
 Never commit secrets (tokens, PATs). Keep them under /var/lib/secrets on the box.
