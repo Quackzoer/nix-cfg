@@ -20,13 +20,20 @@ in
       Type = "oneshot";
       User = user;
     };
+    # Never fail the unit: a missing release (or no network) must not make `nixos-rebuild switch` report an error.
     script = ''
       bin="$HOME/.local/bin/homelab-tui"
       [ -x "$bin" ] && exit 0
       mkdir -p "$(dirname "$bin")"
-      curl -fsSL "https://github.com/${repo}/releases/latest/download/homelab-tui-linux-x64" -o "$bin.new"
-      chmod +x "$bin.new"
-      mv -f "$bin.new" "$bin"
+      url="https://github.com/${repo}/releases/latest/download/homelab-tui-linux-x64"
+      if curl -fsSL "$url" -o "$bin.new"; then
+        chmod +x "$bin.new"
+        mv -f "$bin.new" "$bin"
+        echo "Installed $bin"
+      else
+        rm -f "$bin.new"
+        echo "No homelab-tui release available yet ($url); will retry on the next boot."
+      fi
     '';
   };
 }

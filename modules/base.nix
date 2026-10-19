@@ -18,7 +18,7 @@
 
   system.autoUpgrade = {
     enable = true;
-    flake = "github:YOU/nix-config#wyse";
+    flake = "github:Quackzoer/nix-cfg#wyse";
     flags = [ "--refresh" ];     # always re-fetch the repo, never use cached copy
     dates = "*:0/5";             # every 5 minutes
     allowReboot = false;
