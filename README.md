@@ -18,6 +18,39 @@ git add -A            # flakes only see tracked files
 nixos-install --flake .#wyse
 ```
 
+## hardware-configuration.nix must come from the server
+
+`hosts/wyse/hardware-configuration.nix` describes the machine's disks, so it cannot be written by hand. The file in
+this repo starts as a **placeholder that fails the build on purpose** (`hl deploy` / `nixos-rebuild` stop with
+"hardware-configuration.nix is still the placeholder"). Replace it with the real one, then commit and push it:
+
+```powershell
+# from this repo on your PC (the file is generated on the box, usually in /etc/nixos)
+scp krzysztof@wyse:/etc/nixos/hardware-configuration.nix hosts/wyse/hardware-configuration.nix
+git add hosts/wyse/hardware-configuration.nix
+git commit -m "Add real hardware-configuration for the Wyse"
+git push
+```
+
+Check the file lists your real `fileSystems."/"` (eMMC) and `/data` (SSD) before committing. Redo this only if the
+hardware or disk layout changes.
+
+## flake.lock (pins nixpkgs)
+
+Without a committed `flake.lock`, every deploy uses the newest nixpkgs. You don't need Nix on your PC to create it:
+generate it on the server and copy it back.
+
+```powershell
+ssh krzysztof@wyse "rm -rf /tmp/cfg && git clone -q https://github.com/Quackzoer/nix-cfg /tmp/cfg && cd /tmp/cfg && nix --extra-experimental-features 'nix-command flakes' flake lock"
+scp krzysztof@wyse:/tmp/cfg/flake.lock flake.lock
+git add flake.lock
+git commit -m "Add flake.lock"
+git push
+```
+
+To upgrade nixpkgs later, run the same commands with `flake update` instead of `flake lock`, then commit the new
+`flake.lock` and `hl deploy`.
+
 ## Update
 ```bash
 ssh krzysztof@wyse 'cd ~/nix-config && git pull && sudo nixos-rebuild switch --flake .#wyse'
