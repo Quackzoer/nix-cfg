@@ -64,3 +64,9 @@ enables it, otherwise sudo cannot be used (`sudo passwd krzysztof` works while s
 Deploy from the desktop with `hl deploy` after pushing (it runs `nixos-rebuild switch --flake github:...#wyse --refresh`).
 
 Never commit secrets (tokens, PATs). Keep them under /var/lib/secrets on the box.
+
+## Private repos (GitHub token)
+
+`modules/github-auth.nix` makes Nix read `/etc/nix/access-tokens`, which is **not** in this repo. Install the token
+from your desktop with `hl github login` (see `docs/github-auth.md` in nix-homelab-tui-manager), then `hl deploy`.
+Install the token before the first deploy that uses a private flake input.

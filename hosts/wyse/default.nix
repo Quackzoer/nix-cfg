@@ -7,6 +7,7 @@
     ../../modules/docker.nix
     ../../modules/syncthing.nix
     ../../modules/homelab-tui.nix
+    ../../modules/github-auth.nix
   ];
 
   networking.hostName = "wyse";

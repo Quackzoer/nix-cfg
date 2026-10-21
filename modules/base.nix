@@ -20,7 +20,7 @@
     enable = true;
     flake = "github:Quackzoer/nix-cfg#wyse";
     flags = [ "--refresh" ];     # always re-fetch the repo, never use cached copy
-    dates = "*:0/5";             # every 5 minutes
+    dates = "04:00";              # daily; use `hl deploy` for anything urgent
     allowReboot = false;
     operation = "boot";
   };
