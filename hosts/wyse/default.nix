@@ -6,9 +6,7 @@
     ../../modules/ssh.nix
     ../../modules/docker.nix
     ../../modules/syncthing.nix
-    ../../modules/pihole.nix
     ../../modules/linkwarden.nix
-    ../../modules/local-dns.nix
     ../../modules/homelab-tui.nix
     ../../modules/github-auth.nix
   ];

@@ -5,7 +5,7 @@ NixOS config for the Dell Wyse 5070 (eMMC = `/`, SATA SSD = `/data`).
 ```
 flake.nix
 hosts/wyse/        default.nix + hardware-configuration.nix (generated on the box)
-modules/           base, users, ssh, docker, syncthing
+modules/           base, users, ssh, docker, syncthing, linkwarden
 ```
 
 ## Fresh install (from the NixOS live ISO, disks already mounted on /mnt)

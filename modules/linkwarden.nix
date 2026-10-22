@@ -5,14 +5,16 @@ in
 {
   services.linkwarden = {
     enable = true;
-    # Only reachable through Caddy (linkwarden.homelab.local).
-    host = "127.0.0.1";
+    # Web UI on the LAN: http://<host-ip>:3000
+    host = "0.0.0.0";
     port = 3000;
+    openFirewall = true;
     # Local PostgreSQL is created automatically.
     database.createLocally = true;
     # Contains NEXTAUTH_SECRET; generated on first boot by the service below.
     environmentFile = secretFile;
-    environment.NEXTAUTH_URL = "http://linkwarden.homelab.local/api/v1/auth";
+    # Must match the address you open in the browser, or login redirects break.
+    environment.NEXTAUTH_URL = "http://192.168.1.10:3000/api/v1/auth";
   };
 
   # Generate the secret once, only if it doesn't exist yet. Never overwritten,
