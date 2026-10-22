@@ -19,6 +19,9 @@ in
         redir / /admin/
         reverse_proxy 127.0.0.1:8080
       '';
+      "http://linkwarden.${domain}".extraConfig = ''
+        reverse_proxy 127.0.0.1:3000
+      '';
       # Syncthing rejects unknown Host headers, so present it as localhost.
       "http://syncthing.${domain}".extraConfig = ''
         reverse_proxy 127.0.0.1:8384 {
