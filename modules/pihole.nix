@@ -3,7 +3,6 @@
   services.pihole-ftl = {
     enable = true;
     openFirewallDNS = true;
-    openFirewallWebserver = true;
     lists = [
       {
         url = "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts";
@@ -17,10 +16,8 @@
     };
   };
 
-  # Admin UI at http://<host>/admin. Set the password once with:
+  # Admin UI is served on :8080 (see local-dns.nix) and reached through Caddy at
+  # http://pi-hole.homelab.local. Set the password once with:
   #   sudo pihole setpassword
-  services.pihole-web = {
-    enable = true;
-    ports = [ "80" ];
-  };
+  services.pihole-web.enable = true;
 }
