@@ -9,6 +9,8 @@ in
     host = "0.0.0.0";
     port = 3000;
     openFirewall = true;
+    # Needed to create the first account. Set to false afterwards so nobody else on the LAN can sign up.
+    enableRegistration = true;
     # Local PostgreSQL is created automatically.
     database.createLocally = true;
     # Contains NEXTAUTH_SECRET; generated on first boot by the service below.
